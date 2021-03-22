@@ -25,23 +25,21 @@ public class Game implements Runnable {
 		System.out.println("We can see tree enemies. If you want to fight write 'up', or 'down' to scape.");
 		direction = texto.nextLine();
 		if(direction.equals(up)) {
-			if(Game.rand.nextInt(100) < 10) {
+			if(Game.rand.nextInt(100) < 55) {
 				System.out.println("You defeat the tree enemies. Congratulations!");
 				gameState = "GAME-OVER";
+				return;
 			}else {
 				System.out.println("You had lose. Do you want to restart? 'yes' or 'no'.");				
 			}
 			option = texto.nextLine();
 			if(option.equals(yes)) {
-				//restartGame = true;
-				RestartGame();
 				//System.out.println("Continue");		//debug
 			}if(option.equals(no)) {
 				System.out.println("Game Over!");
-				gameState = "GAME-OVER";
 			}
 		}else if(direction.equals(down)) {
-			System.out.println("Yout have scaped.");
+			System.out.println("You have scaped.");
 			gameState = "GAME-OVER";
 		}
 	}
@@ -52,16 +50,6 @@ public class Game implements Runnable {
 		thread.start();
 	}
 	
-	/*
-	public synchronized void Stop() {
-		isRunning = false;
-		try {
-			thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-	*/
 	public static void main(String[] args) {
 		Game game = new Game();
 		game.Start();
@@ -76,9 +64,14 @@ public class Game implements Runnable {
 			//System.out.println("Game Over!");		//Debug
 			System.exit(1);
 		}
+		if(option.equals(yes)) {
+			restartGame = true;
+			RestartGame();
+		}
+		if(option.equals(no)) {
+			gameState = "GAME-OVER";
+		}
 		
-		
-		//Game.main(null);
 	}
 	
 	@Override
@@ -95,23 +88,21 @@ public class Game implements Runnable {
 		System.out.println("We can see tree enemies. If you want to fight write 'up', or 'down' to scape.");
 		direction = texto.nextLine();
 		if(direction.equals(up)) {
-			if(Game.rand.nextInt(100) < 10) {
+			if(Game.rand.nextInt(100) < 55) {
 				System.out.println("You defeat the tree enemies. Congratulations!");
 				gameState = "GAME-OVER";
+				return;
 			}else {
 				System.out.println("You had lose. Do you want to restart? 'yes' or 'no'.");				
 			}
 			option = texto.nextLine();
 			if(option.equals(yes)) {
-				restartGame = true;
-				RestartGame();
 				//System.out.println("Continue");		//debug
 			}if(option.equals(no)) {
 				System.out.println("Game Over!");
-				gameState = "GAME-OVER";
 			}
 		}else if(direction.equals(down)) {
-			System.out.println("Yout have scaped.");
+			System.out.println("You have scaped.");
 			gameState = "GAME-OVER";
 		}
 		return;
