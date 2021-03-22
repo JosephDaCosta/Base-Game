@@ -27,15 +27,17 @@ public class Game implements Runnable {
 		if(direction.equals(up)) {
 			if(Game.rand.nextInt(100) < 10) {
 				System.out.println("You defeat the tree enemies. Congratulations!");
+				gameState = "GAME-OVER";
 			}else {
 				System.out.println("You had lose. Do you want to restart? 'yes' or 'no'.");				
-				option = texto.nextLine();
-			}if(option.equals(yes)) {
-				restartGame = true;
-				gameState = "NORMAL";
-				System.out.println("Continue");		//debug
+			}
+			option = texto.nextLine();
+			if(option.equals(yes)) {
+				//restartGame = true;
+				RestartGame();
+				//System.out.println("Continue");		//debug
 			}if(option.equals(no)) {
-				System.out.println("Game Over");	//debug
+				System.out.println("Game Over!");
 				gameState = "GAME-OVER";
 			}
 		}else if(direction.equals(down)) {
@@ -68,13 +70,11 @@ public class Game implements Runnable {
 	public void Update() {
 		if(gameState == "NORMAL") {
 			this.restartGame = false;
-			//System.out.println("Normal");
+			//System.out.println("Normal");		//Debug
 		}else if(gameState == "GAME-OVER") {
-			if(direction.equals(yes)) {
-			this.restartGame = true;
-			gameState = "NORMAL";
-			System.out.println("Game Over");
-			}
+			this.restartGame = false;
+			//System.out.println("Game Over!");		//Debug
+			System.exit(1);
 		}
 		
 		
@@ -94,6 +94,26 @@ public class Game implements Runnable {
 		System.out.println("Game Start...");
 		System.out.println("We can see tree enemies. If you want to fight write 'up', or 'down' to scape.");
 		direction = texto.nextLine();
+		if(direction.equals(up)) {
+			if(Game.rand.nextInt(100) < 10) {
+				System.out.println("You defeat the tree enemies. Congratulations!");
+				gameState = "GAME-OVER";
+			}else {
+				System.out.println("You had lose. Do you want to restart? 'yes' or 'no'.");				
+			}
+			option = texto.nextLine();
+			if(option.equals(yes)) {
+				restartGame = true;
+				RestartGame();
+				//System.out.println("Continue");		//debug
+			}if(option.equals(no)) {
+				System.out.println("Game Over!");
+				gameState = "GAME-OVER";
+			}
+		}else if(direction.equals(down)) {
+			System.out.println("Yout have scaped.");
+			gameState = "GAME-OVER";
+		}
 		return;
 	}
 	
