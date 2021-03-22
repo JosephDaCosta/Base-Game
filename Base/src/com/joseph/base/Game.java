@@ -11,6 +11,7 @@ public class Game implements Runnable {
 	private boolean isRunning;
 	
 	public static String direction;
+	public static String option;
 	public static String right = "right", left = "left", up = "up",down = "down";
 	public String yes = "yes", no = "no";
 	
@@ -25,18 +26,21 @@ public class Game implements Runnable {
 		direction = texto.nextLine();
 		if(direction.equals(up)) {
 			if(Game.rand.nextInt(100) < 10) {
-				System.out.println("You defeat the tree enemies!");			
-		}else {
-			System.out.println("You had lose. Do you want to restart? 'yes' or 'no'.");
-			if(direction.equals(no)) {
-				System.out.println("GAME OVER!");
-				gameState = "GAME-OVER";
-			}else if(direction.equals(yes)) {
+				System.out.println("You defeat the tree enemies. Congratulations!");
+			}else {
+				System.out.println("You had lose. Do you want to restart? 'yes' or 'no'.");				
+				option = texto.nextLine();
+			}if(option.equals(yes)) {
+				restartGame = true;
 				gameState = "NORMAL";
+				System.out.println("Continue");		//debug
+			}if(option.equals(no)) {
+				System.out.println("Game Over");	//debug
+				gameState = "GAME-OVER";
 			}
-		}
 		}else if(direction.equals(down)) {
-			System.out.println("You have scaped.");
+			System.out.println("Yout have scaped.");
+			gameState = "GAME-OVER";
 		}
 	}
 	
@@ -45,6 +49,7 @@ public class Game implements Runnable {
 		isRunning = true;
 		thread.start();
 	}
+	
 	/*
 	public synchronized void Stop() {
 		isRunning = false;
@@ -75,7 +80,7 @@ public class Game implements Runnable {
 		
 		//Game.main(null);
 	}
-
+	
 	@Override
 	public void run() {
 		while(isRunning) {
